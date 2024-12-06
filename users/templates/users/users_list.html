@@ -1,0 +1,36 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>Пользователи</h1>
+        {% if users %}
+            {% for user in users %}
+                <div class="alert alert-info container text-center">
+                    <h4>{{ user.username }}</h4>
+
+                    {% if user.first_name %}
+                        <p>Имя - {{ user.first_name }}</p>
+                    {% endif %}
+
+                    {% if user.last_name %}
+                        <p>Фамилия - {{ user.last_name }}</p>
+                    {% endif %}
+
+                    {% if user.email %}
+                        <p>Email - {{ user.email }}</p>
+                    {% endif %}
+
+                    {% if user.teacher %}
+                        <p>Является преподавателем</p>
+                    {% else %}
+                        <p>Является студентом</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>На данный момент никто не регистрировался на сайте</p>
+        {% endif %}
+    </div>    
+{% endblock %}

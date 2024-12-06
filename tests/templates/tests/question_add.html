@@ -1,0 +1,52 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Добавить вопрос{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h2>Вопрос</h2>
+        {% if messages or form.errors %}
+            <div class="alert 
+            {% if messages %} alert-success {% else %} alert-warning {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% elif form.errors %}
+                    {{ form.errors }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label class="small mb-1" for="{{ form.question_str.id_for_label }}">Текст вопроса</label>
+                    {{ form.question_str }}<br>
+        
+                    <label class="small mb-1" for="{{ form.correct_answer.id_for_label }}">Правильный ответ</label>
+                    {{ form.correct_answer }}<br>
+        
+                    {% if form.answer1 %}
+                        <label class="small mb-1" for="{{ form.answer1.id_for_label }}">Вариант ответа</label>
+                        {{ form.answer1 }}<br>
+                    
+                        <label class="small mb-1" for="{{ form.answer1.id_for_label }}">Вариант ответа</label>
+                        {{ form.answer2 }}<br>
+                    
+                        <label class="small mb-1" for="{{ form.answer1.id_for_label }}">Вариант ответа</label>
+                        {{ form.answer3 }}<br>
+
+                        <label class="small mb-1" for="{{ form.answer1.id_for_label }}">Вариант ответа</label>
+                        {{ form.answer4 }}<br>
+                    {% endif %}
+        
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+{% endblock %}

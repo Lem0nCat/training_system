@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Учетная запись{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h2>Авторизация</h2>
+
+        {% if messages or form.non_field_errors %}
+            <div class="alert 
+            {% if messages %} alert-success {% else %} alert-warning {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% elif form.non_field_errors %}
+                    {{ form.non_field_errors }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
+            {{ form.username }}<br>
+            <label class="small mb-1" for="{{ form.username.id_for_label }}">Пароль</label>
+            {{ form.password }}<br>
+            <button class="btn btn-success" type="submit">Войти</button>
+            <a href="{% url 'registration' %}" class="btn btn-link">Создать аккаунт</a>
+        </form>
+    </div>    
+{% endblock %}
+

@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Тестирование{% endblock %}
+
+{% block content %}
+    <div class="features">
+        {% if messages %}
+            <div class="alert 
+            {% if messages.get_level == success %} alert-success {% else %} alert-warning {% endif %}
+            container">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if test_results %}
+            {% for result in test_results %}
+                <div class="alert alert-dark ">
+                    {{ result }}
+                    <p><b>{{ result.points }} баллов</b></p>
+                    <p><b>{{ result.date }}</b></p>
+                </div>
+            {% endfor %}
+        {% else %}
+                <p>Ни одно тестирование не было пройдено</p>
+        {% endif %}
+    </div>
+{% endblock %}
+

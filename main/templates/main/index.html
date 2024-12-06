@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ title }}</h1>
+
+        {% if messages or form.non_field_errors %}
+            <div class="alert 
+            {% if message.level == ERROR %} alert-warning 
+            {% else %} alert-success {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <p>Добро пожаловать на портал Study!</p>
+        {% if user.is_authenticated == False %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Войти или зарегистрироваться</a>
+        {% endif %}
+    </div>    
+{% endblock %}
+
+

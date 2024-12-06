@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+
+{% block title %}{{ question }}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="container text-center">
+                <div class="alert alert-primary row">
+                    <p>{{ question }}</p>
+                </div>
+                {% if answers.1 != None %}
+                    <div class="alert alert-primary row">
+                        {% for answer in answers %}
+                            <p>{{ forloop.counter }}) {{ answer }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="alert alert-primary row">
+                    <label class="small mb-1" for="{{ form.answer.id_for_label }}">Ответ</label>
+                    {{ form.answer }}
+                </div>
+                {% if user.is_teacher == False %}
+                    <div class="alert">
+                        <button class="btn btn-success" type="submit">Ответить</button>
+                    </div>
+                {% endif %}
+            </div>
+        </form>
+    </div>    
+{% endblock %}

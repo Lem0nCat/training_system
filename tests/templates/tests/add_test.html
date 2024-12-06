@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Добавить тест{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h2>Создание тестирования</h2>
+        {% if messages or form.errors %}
+            <div class="alert 
+            {% if messages %} alert-success {% else %} alert-warning {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% elif form.errors %}
+                    {{ form.errors }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <form method="post">
+                    {% csrf_token %}
+                    <label class="small mb-1" for="{{ form.possible_points.id_for_label }}">Количество баллов</label>
+                    {{ form.possible_points }}<br>
+
+                    <button class="btn btn-success" type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+{% endblock %}

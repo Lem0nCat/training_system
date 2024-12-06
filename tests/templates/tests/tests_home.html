@@ -1,0 +1,59 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Тестирование{% endblock %}
+
+{% block content %}
+    <div class="features">
+        {% if messages or form.errors %}
+            <div class="alert 
+            {% if messages.get_level == success %} alert-success {% else %} alert-warning {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% elif form.errors %}
+                    {{ form.errors }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if questions and test %}
+            <form action="" method="POST">
+                {% for question in questions %}
+                    <div class="alert alert-dark ">
+                        <a href="{% url 'tests:question_view' lecture_id question.id %}" class="alert-link">{{ question.question_str }}</a>
+                    </div>
+                {% endfor %}
+
+                {% csrf_token %}
+                {% if user.is_teacher == False %}
+                    <button class="btn btn-success" type="submit">Завершить тестирование</button>
+                {% endif %}
+            </form>
+        {% elif test %}
+            <div class="alert alert-info">
+                Вопросы не были добавлены
+            </div>
+        {% endif %}
+
+        {% if test == False %}
+            <div class="alert alert-info">
+                Тест еще не создан
+            </div>
+            {% if user.is_teacher %}
+                <div class="alert">
+                    <a href="{% url 'tests:test_create' lecture_id %}" class="btn btn-primary">Создать тест</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert">
+                {% if user.is_teacher %}
+                    <a href="{% url 'tests:question_create' lecture_id 1 %}" class="btn btn-primary">Добавить вопрос 1</a>
+                    <a href="{% url 'tests:question_create' lecture_id 2 %}" class="btn btn-primary">Добавить вопрос 2</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+

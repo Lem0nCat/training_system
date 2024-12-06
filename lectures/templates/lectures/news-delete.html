@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Удаление лекции{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h2>Вы уверены, что хотите удалить данную лекцию?</h2>
+        <form method="post">
+            {% csrf_token %}
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Отменить</a>
+            <button class="btn btn-danger" type="submit">Удалить</button>
+        </form>
+    </div>    
+{% endblock %}

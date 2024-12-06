@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>Учетная запись</h1>
+
+        <div class="col-lg-12 text-center">
+            <img width="200" height="200"
+            src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'users/img/default_avatar.jpeg' %} {% endif %}"
+            class="img-thumbnail">
+        </div>
+
+        <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="custom-file">
+                <label for="{{ form.image.id_for_label }}" class="small mb-1">Выберите изображение</label>
+                {{ form.image }}
+            </div><br>
+
+            <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
+            {{ form.first_name }}<br>
+
+            <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
+            {{ form.last_name }}<br>
+
+            <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
+            {{ form.username }}<br>
+
+            <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной почты</label>
+            {{ form.email }}<br>
+
+            <label class="small mb-1" for="{{ form.teacher.id_for_label }}">Вы преподаватель?</label>
+            {{ form.teacher }}<br>
+
+            <button class="btn btn-info" type="submit">Сохранить</button>
+        </form>
+    </div>    
+{% endblock %}

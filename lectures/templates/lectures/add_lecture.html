@@ -1,0 +1,62 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Добавить лекцию{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h2>Лекция</h2>
+        {% if form.theme.value %}
+            <h2>"{{ form.theme.value }}"</h2>
+        {% endif %}
+
+        {% if messages or form.errors %}
+            <div class="alert 
+            {% if messages %} alert-success {% else %} alert-warning {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% elif form.errors %}
+                    {{ form.errors }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label class="small mb-1" for="{{ form.theme.id_for_label }}">Тема лекции</label>
+                        {{ form.theme }}<br>
+            
+                        <label class="small mb-1" for="{{ form.show_theme.id_for_label }}">Показать тему?</label>
+                        {{ form.show_theme }}<br>
+            
+                        <label class="small mb-1" for="{{ form.text.id_for_label }}">Текст статьи</label>
+                        {{ form.text }}<br>
+            
+                        <label class="small mb-1" for="{{ form.image.id_for_label }}">Изображение</label>
+                        {{ form.image }}<br>
+            
+                        <label class="small mb-1" for="{{ form.video_url.id_for_label }}">Ссылка на видео</label>
+                        {{ form.video_url }}<br>
+            
+                        <button class="btn btn-success" type="submit">Сохранить</button>
+                    </form>
+                </div>
+                <div class="col">
+                    {% if lecture.image.url %}
+                        <img width="500px" src="{{ lecture.image.url }}">
+                    {% else %}
+                        <img height="400vh"
+                        src="{% static 'lectures\default_image.jpeg' %}" 
+                        alt="default_image">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>    
+{% endblock %}

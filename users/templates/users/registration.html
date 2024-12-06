@@ -1,0 +1,42 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Учетная запись{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h2>Регистрация</h2>
+
+        {% if form.errors %}
+            <div class="alert alert-warning container">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <form action="{% url 'registration' %}" method="post">
+            {% csrf_token %}
+            <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
+            {{ form.first_name }}<br>
+
+            <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
+            {{ form.last_name }}<br>
+
+            <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
+            {{ form.username }}<br>
+
+            <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной почты</label>
+            {{ form.email }}<br>
+
+            <label class="small mb-1" for="{{ form.password1.id_for_label }}">Пароль</label>
+            {{ form.password1 }}<br>
+
+            <label class="small mb-1" for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
+            {{ form.password2 }}<br>
+
+            <label class="small mb-1" for="{{ form.teacher.id_for_label }}">Вы преподаватель?</label>
+            {{ form.teacher }}<br>
+
+            <button class="btn btn-success" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>    
+{% endblock %}
+

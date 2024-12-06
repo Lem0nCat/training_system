@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Лекции{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>Лекции</h1>
+
+        {% if messages or form.non_field_errors %}
+            <div class="alert 
+            {% if message.level == ERROR %} alert-warning 
+            {% else %} alert-success {% endif %}
+            container">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if user.is_authenticated and user.is_teacher %}
+            <a href="{% url 'add-lecture' %}" class="btn btn-info">Добавить лекцию</a>
+        {% endif %}
+
+        {% if lectures %}
+            {% for value in lectures %}
+                <div class="alert alert-info container text-center">
+                    {% if value.show_theme %}
+                        <h3>{{ value.theme }}</h3>
+                    {% else %}
+                        <h3>Скрыто</h3>
+                    {% endif %}
+                    <p>{{ value.text | truncatewords:40 }}</p>
+                    <a href="{% url 'lectures-detail' value.id %}" class="btn btn-warning">Подробнее</a>
+                </div>
+                  
+            {% endfor %}
+        {% else %}
+            <p>Никто еще не добавлял лекции</p>
+        {% endif %}
+
+        {# Комментарий #}
+    </div>    
+{% endblock %}
